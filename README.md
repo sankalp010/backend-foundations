@@ -40,3 +40,26 @@ Http Server was implemented with routes using node core 'http' modules
 ```bash
 node index.js
 ```
+
+# Backend Foundations Day 03
+
+## Overview
+
+Http server was implemented with routes using node core 'http' modules via `url-parsing`
+
+## Behavior
+
+- `GET /` -> `200 OK` with plain text `OK`
+- `GET /health` -> `200 OK` with plain text `HEALTHY`
+- Any other routes with `GET` -> `404 NOT FOUND` with plain text `Not Found`
+- Any other method, `405 METHOD NOT ALLOWED` with plain text `Method Not Allowed`
+
+## Requirements
+
+Node.js v18 or higher
+
+## Run Locally
+
+```bash
+node index.js
+```
