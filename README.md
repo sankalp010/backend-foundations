@@ -4,7 +4,7 @@
 
 Minimal http server implemented using node core 'http' modules (without express)
 
-## Behavior
+## Behaviour
 
 - `GET /` -> `200 OK` with plain text response `OK`
 - Any other route, method `404 NOT FOUND` with empty body.
@@ -25,7 +25,7 @@ node index.js
 
 Http Server was implemented with routes using node core 'http' modules
 
-## Behavior
+## Behaviour
 
 - `GET /` -> `200 OK` with plain text `OK`
 - `GET /health` -> `200 OK` with plain text `HEALTHY`
@@ -47,7 +47,7 @@ node index.js
 
 Http server was implemented with routes using node core 'http' modules via `url-parsing`
 
-## Behavior
+## Behaviour
 
 - `GET /` -> `200 OK` with plain text `OK`
 - `GET /health` -> `200 OK` with plain text `HEALTHY`
@@ -62,4 +62,24 @@ Node.js v18 or higher
 
 ```bash
 node index.js
+```
+
+# Backend Foundations Day 04
+
+## Overview
+
+Implemented a http server using Node core 'http' module by creating a routing table object.
+
+## Behaviour
+
+- Routing Table Object with `key` -> `METHOD PATH` and `value` -> `handler callback function`
+- `GET /` -> `200 OK` with plain text `OK`
+- `GET /health` -> `200 OK` with plain text `HEALTHY`
+- Any other routes with `GET` -> `404 NOT FOUND` with body `Not Found`
+- Any other method, `405 METHOD NOT ALLOWED` with body `Method Not Allowed`
+
+## Run Locally
+
+```bash
+npm start
 ```
