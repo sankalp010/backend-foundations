@@ -72,7 +72,8 @@ Implemented a http server using Node core 'http' module by creating a routing ta
 
 ## Behaviour
 
-- Routing Table Object with `key` -> `METHOD PATH` and `value` -> `handler callback function`
+- Routing Table Object with `key` -> `METHOD PATH` and `value` -> `callback function with 2 arguments req and res`
+- Status Handler Function
 - `GET /` -> `200 OK` with plain text `OK`
 - `GET /health` -> `200 OK` with plain text `HEALTHY`
 - Any other routes with `GET` -> `404 NOT FOUND` with body `Not Found`
