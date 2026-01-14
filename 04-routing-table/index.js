@@ -5,15 +5,16 @@ let port = 3000;
 
 const routingTable = {
   "GET /": (req, res) => {
-    res.end("OK");
+    send(res, 200, "OK");
   },
   "GET /health": (req, res) => {
-    res.end("HEALTHY");
+    send(res, 200, "HEALTHY");
   },
 };
 
-function statusHandler(res, status) {
+function send(res, status, body) {
   res.writeHead(status, { "Content-Type": "text/plain" });
+  res.end(body);
 }
 
 const server = http.createServer((req, res) => {
@@ -23,24 +24,21 @@ const server = http.createServer((req, res) => {
     "./log.txt",
     `${Date.now()}: ${parsedUrl.pathname} New Request Received \n`,
     (err) => {
-      err;
+      console.log(`Error: ${err}`);
     }
   );
 
   let data = `${req.method} ${parsedUrl.pathname}`;
   let key = routingTable[data];
   if (key) {
-    statusHandler(res, 200);
     return key(req, res);
   }
 
   if (req.method !== "GET") {
-    res.writeHead(405);
-    return res.end("Method Not Allowed");
+    return send(res, 405, "Method Not Allowed");
   }
 
-  res.writeHead(404);
-  res.end("Not Found");
+  return send(res, 404, "Not Found");
 });
 
 server.listen(port, () => {
