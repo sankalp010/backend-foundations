@@ -1,0 +1,11 @@
+POST /
+GET /
+GET /health
+GET /healthy
+POST /healthy
+GET /
+GET /health
+GET /other
+POST /
+DELETE /
+PUT /

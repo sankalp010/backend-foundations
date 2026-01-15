@@ -84,3 +84,30 @@ Implemented a http server using Node core 'http' module by creating a routing ta
 ```bash
 npm start
 ```
+
+# Backend Foundations Day 05
+
+## Overview
+
+Http server using Node core 'http' modules without Express by implementing middleware system.
+
+## Behaviour
+
+- `loggerMiddleware` -> logs `METHOD PATHNAME` in `log.txt`
+- `methodeMiddleware` -> allows `GET` returns `405 METHOD NOT ALLOWED` with body `Method Not Allowed` for others.
+- `routerMiddleware` -> handles `GET`, wrt `routingTable` and `404 NOT FOUND` for other `GET` paths
+- `routingTable` handles routes for `GET`
+- `GET /` -> `200 OK` with plain text `OK`
+- `GET /health` -> `200 OK` with plain text `HEALTHY`
+- Reusable helper function `send` to set `status` and `content-type`
+
+## Middleware Workflow
+
+- initiated by `runMiddleware(req, res, middlewares)`
+- `routerMiddleware` is the terminal middleware
+
+## Run Locally
+
+```bash
+npm start
+```
