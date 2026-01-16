@@ -111,3 +111,28 @@ Http server using Node core 'http' modules without Express by implementing middl
 ```bash
 npm start
 ```
+
+# Backend Foundations Day 06
+
+## Overview
+
+Implemented a request body parser middleware in a http server using node core 'http' module.
+
+## Behaviour
+
+- `GET /health` -> `200 OK` with body `HEALTHY`
+- `POST /echo` -> `200 OK` returns parsed JSON body as plain text
+- `POST /echo` with `invalid JSON` -> `400 BAD REQUEST` with body `Bad Request`
+- `POST /echo` with `wrong content-type` -> `415 UNSUPPORTED MEDIA TYPE` with body `Unsupported Media Type`
+
+## Test `POST /echo`
+
+```bash
+curl -X POST -H "content-type:application/json" -d '{"a":"alphabet", "b":2}
+```
+
+## Run Locally
+
+```bash
+npm start
+```

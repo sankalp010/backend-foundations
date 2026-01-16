@@ -9,3 +9,5 @@ GET /other
 POST /
 DELETE /
 PUT /
+GET /health
+GET /health?q=salad&r=protein
