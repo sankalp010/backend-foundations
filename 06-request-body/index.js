@@ -86,7 +86,11 @@ function runMiddleware(req, res, middlewares) {
   next();
 }
 const server = http.createServer((req, res) => {
-  runMiddleware(req, res, middlewares);
+  try {
+    runMiddleware(req, res, middlewares);
+  } catch {
+    send(res, 500, "Internal Server Error");
+  }
 });
 
 server.listen(port, () => {

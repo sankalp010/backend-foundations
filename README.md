@@ -161,7 +161,7 @@ npm install express
 
 ## Middleware Order
 
-`loggerMiddleware` -> `Body-parser` -> `Centralized Error Handling`
+`loggerMiddleware` -> `Body-parser` -> `routes` -> `Centralized Error Handling`
 
 ## Error Handling
 

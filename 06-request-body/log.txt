@@ -14,3 +14,6 @@ POST /home
 POST /home
 POST /home
 POST /home
+POST /echo
+POST /echo
+POST /echo
