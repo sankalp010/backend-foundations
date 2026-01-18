@@ -120,6 +120,7 @@ Implemented a request body parser middleware in a http server using node core 'h
 
 ## Behaviour
 
+- `GET /` -> `200 OK` with body `OK`
 - `GET /health` -> `200 OK` with body `HEALTHY`
 - `POST /echo` -> `200 OK` returns parsed JSON body as plain text
 - `POST /echo` with `invalid JSON` -> `400 BAD REQUEST` with body `Bad Request`
@@ -135,4 +136,44 @@ curl -X POST -H "content-type:application/json" -d '{"a":"alphabet", "b":2}
 
 ```bash
 npm start
+```
+
+# Express Basics Day 07
+
+## Overview
+
+Implemented a basic Express server with custom logger middleware and centralized error handling
+
+## Behaviour
+
+- `GET /` -> `200 OK` with body `OK`
+- `GET /health` -> `200 OK` with body `HEALTHY`
+- `POST /echo` -> `200 OK` returns parsed `JSON` body
+- `Logger Middleware` logs `METHOD PATH`
+
+## Pre-requisite
+
+- install express
+
+```bash
+npm install express
+```
+
+## Middleware Order
+
+`loggerMiddleware` -> `Body-parser` -> `Centralized Error Handling`
+
+## Error Handling
+
+- `POST /echo` with invalid JSON -> `400 BAD REQUEST`
+- `POST /echo` with missing `content-type` -> `415 UNSUPPORTED MEDIA TYPE` with body `Unsupported Media Type`
+
+## Requirements
+
+- Node.js v18 or higher
+
+## Runs Locally
+
+```bash
+nodemon
 ```

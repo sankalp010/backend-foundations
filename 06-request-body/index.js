@@ -4,15 +4,16 @@ const fs = require("fs");
 let port = 3000;
 
 function send(res, status, body) {
-  res.writeHead(status, { "Content-Type": "text/plain" });
+  if (res.writableEnded) return;
+  res.writeHead(status, { "content-type": "text/plain" });
   res.end(body);
 }
 
 function loggerMiddleware(req, res, next) {
-  let log = `${req.method} ${req.url}`;
+  let log = `${req.method} ${req.url}\n`;
   fs.appendFile("./log.txt", log, (err) => {
     if (err) {
-      console.log("Error: ", err);
+      console.log("Error", err);
     }
   });
   next();
@@ -21,9 +22,9 @@ function loggerMiddleware(req, res, next) {
 function reqBodyParserMiddleware(req, res, next) {
   if (req.method !== "POST") return next();
 
-  if (req.headers["content-type"] !== "application/json") {
+  let data = req.headers["content-type"] + "";
+  if (!data.startsWith("application/json")) {
     send(res, 415, "Unsupported Media Type");
-    return;
   }
 
   let raw = "";
@@ -38,26 +39,34 @@ function reqBodyParserMiddleware(req, res, next) {
       next();
     } catch {
       send(res, 400, "Bad Request");
+      return;
     }
   });
 }
 
 function routerMiddleware(req, res, next) {
   const protocol = "http://";
-  const portHost = `${protocol}${req.headers.host}`;
-  const parsedUrl = new URL(req.url, portHost);
-  const handler = `${req.method} ${parsedUrl.pathname}`;
-
-  if (handler === "GET /health") {
-    send(res, 200, "HEALTHY");
-    return;
+  const url = `${protocol}${req.headers.host}`;
+  const parsedUrl = new URL(req.url, url);
+  if (req.method === "GET") {
+    if (parsedUrl.pathname === "/health") {
+      send(res, 200, "HEALTHY");
+      return;
+    }
+    if (parsedUrl.pathname === "/") {
+      send(res, 200, "OK");
+      return;
+    }
+    send(res, 404, "Not Found");
   }
 
-  if (handler === "POST /echo") {
-    send(res, 200, JSON.stringify(req.body));
-    return;
+  if (req.method === "POST") {
+    if (parsedUrl.pathname === "/echo") {
+      send(res, 200, JSON.stringify(req.body));
+      return;
+    }
+    send(res, 405, "Method Not Allowed");
   }
-  send(res, 404, "Not Found");
 }
 
 const middlewares = [
@@ -70,7 +79,7 @@ function runMiddleware(req, res, middlewares) {
   let index = 0;
 
   function next() {
-    const middleware = middlewares[index++];
+    let middleware = middlewares[index++];
     if (!middleware) return;
     middleware(req, res, next);
   }
