@@ -177,3 +177,41 @@ npm install express
 ```bash
 nodemon
 ```
+
+# Express Router Day 08
+
+## Overview
+
+Implemented basic express server where express routes are exported using express.Router() and module.exports
+
+## Behaviour
+
+- `GET /health` -> `200 OK` with body `HEALTHY`
+- `POST /echo` -> `200 OK` with parsed `JSON` body
+
+## Pre-requisite
+
+- install express
+
+```bash
+npm install express
+```
+
+## Middleware Order
+
+`loggerMiddleware` -> `Body-parser` -> `routes` -> `Centralized Error Handling`
+
+## Error Handling
+
+- `POST /echo` with invalid JSON -> `400 BAD REQUEST` with body `Bad Request`
+- `POST /echo` with missing `content-type` -> `415 UNSUPPORTED MEDIA TYPE` with body `Unsupported Media Type`
+
+## Requirements
+
+- Node.js v18 or higher
+
+## Runs Locally
+
+```bash
+nodemon
+```
