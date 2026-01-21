@@ -2,17 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 let usrs = [];
-
-class User {
-  constructor(id, name, email) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-  }
-}
+let idx = 1;
 
 router.get("/", (req, res) => {
-  return res.send(usrs);
+  return res.json(usrs);
 });
 
 router.get("/:id", (req, res) => {
@@ -20,22 +13,27 @@ router.get("/:id", (req, res) => {
   let num = Number(id);
   for (let usr of usrs) {
     if (num === usr.id) {
-      return res.send(usr.name);
+      return res.json(usr);
     }
   }
-  return res.status(404).send("Not Found");
+  return res.status(404).json({ error: "Not Found" });
 });
 
 router.post("/", (req, res) => {
-  let { id, name, email } = req.body;
+  let { name, email } = req.body;
   if (!name || typeof name !== "string") {
-    return res.status(400).send("Enter a valid Name");
+    return res.status(400).json({ error: "Invalid name" });
   }
   if (!email || !email.includes("@")) {
-    return res.status(400).send("Enter a valid email");
+    return res.status(400).json({ error: "Invalid email" });
   }
-  usrs.push(new User(id, name, email));
-  return res.send(`${name} created`);
+  const user = {
+    id: idx++,
+    name: name,
+    email: email,
+  };
+  usrs.push(user);
+  return res.status(201).json(user);
 });
 
 router.delete("/:id", (req, res) => {
@@ -43,11 +41,11 @@ router.delete("/:id", (req, res) => {
   let num = Number(id);
   for (let i = 0; i < usrs.length; i++) {
     if (num === usrs[i].id) {
-      usrs.splice(i, 1);
-      return res.send("User Deleted");
+      let deletedUser = usrs.splice(i, 1);
+      return res.json(deletedUser[0]);
     }
   }
-  return res.status(404).send("Not Found");
+  return res.status(404).json({ error: "Not Found" });
 });
 
 module.exports = router;

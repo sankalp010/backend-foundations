@@ -225,7 +225,7 @@ Implemented a Express server which follows `RESTful routes`
 ## Behaviour
 
 - `GET /users` -> return all users
-- `GET /users/:id` -> return a single user if present or `404 Not Found` if not
+- `GET /users/:id` -> return a user if present or `404 Not Found` if not
 - `POST /users` -> create a user
 - `DELETE /users/:id` -> delete user
 
@@ -240,7 +240,7 @@ npm install express
 ## Error Handling
 
 - `POST /users` with invalid JSON -> `400 BAD REQUEST` with body `Bad Request`
-- `GET /users` with invlaid mail or name -> `400 Bad Request`
+- `POST /users` with invalid mail or name -> `400 Bad Request`
 
 ## Requirements
 
