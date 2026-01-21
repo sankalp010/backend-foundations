@@ -215,3 +215,39 @@ npm install express
 ```bash
 nodemon
 ```
+
+# Express Rest Users Day 09
+
+## Overview
+
+Implemented a Express server which follows `RESTful routes`
+
+## Behaviour
+
+- `GET /users` -> return all users
+- `GET /users/:id` -> return a single user if present or `404 Not Found` if not
+- `POST /users` -> create a user
+- `DELETE /users/:id` -> delete user
+
+## Pre-requisite
+
+- install express
+
+```bash
+npm install express
+```
+
+## Error Handling
+
+- `POST /users` with invalid JSON -> `400 BAD REQUEST` with body `Bad Request`
+- `GET /users` with invlaid mail or name -> `400 Bad Request`
+
+## Requirements
+
+- Node.js v18 or higher
+
+## Runs Locally
+
+```bash
+nodemon
+```
